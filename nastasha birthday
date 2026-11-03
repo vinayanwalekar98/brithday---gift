@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Natasha</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg,#28152f,#713e79,#c477a2);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    color: #ffe5a9;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    to { opacity: .2; transform: scale(.7); }
+}
+
+.main {
+    width: 100%;
+    max-width: 650px;
+    min-height: 550px;
+    padding: 35px 25px;
+    text-align: center;
+    border-radius: 30px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.3);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 20px 60px #180d25;
+    position: relative;
+    z-index: 2;
+}
+
+.slide {
+    display: none;
+    animation: slideIn .7s ease;
+}
+
+.slide.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #ffe2ed;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(40px, 9vw, 65px);
+    color: #fff0f7;
+    margin: 15px 0;
+}
+
+.name {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(45px, 10vw, 75px);
+    color: #ffe19b;
+    margin: 15px 0;
+}
+
+.big-emoji {
+    font-size: 85px;
+    margin: 20px 0;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    50% { transform: translateY(-12px); }
+}
+
+p {
+    font-size: 14px;
+    line-height: 2;
+    color: #fff0f7;
+    font-weight: 300;
+}
+
+.quote {
+    font-family: 'Dancing Script', cursive;
+    font-size: 27px;
+    color: #ffe19b;
+    margin: 25px 0;
+}
+
+.divider {
+    width: 90px;
+    height: 2px;
+    background: #ffd6e8;
+    margin: 20px auto;
+}
+
+/* Gallery */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.photo {
+    height: 145px;
+    border-radius: 16px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 35px;
+    overflow: hidden;
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo span {
+    font-size: 11px;
+    margin-top: 8px;
+}
+
+/* Navigation */
+.navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+button {
+    border: none;
+    padding: 12px 22px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    background: linear-gradient(45deg,#ffbad7,#ffe6aa);
+    color: #67344f;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    transform: scale(1.07);
+}
+
+button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 22px;
+}
+
+.dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.4);
+}
+
+.dot.active {
+    width: 23px;
+    border-radius: 10px;
+    background: #ffe1a0;
+}
+
+.footer {
+    margin-top: 25px;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #ffe0ed;
+}
+
+@media(max-width:480px) {
+    .main {
+        padding: 30px 16px;
+        min-height: 550px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .photo {
+        height: 120px;
+    }
+
+    button {
+        padding: 11px 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background" id="background"></div>
+
+<div class="main">
+
+<!-- SLIDE 1 -->
+<section class="slide active">
+
+    <div class="eyebrow">A SPECIAL DAY FOR SOMEONE SPECIAL</div>
+
+    <div class="big-emoji">🎂</div>
+
+    <h1>Happy Birthday</h1>
+
+    <div class="name">Natasha</div>
+
+    <div class="divider"></div>
+
+    <p>
+        Today is your day! A new year of beautiful
+        memories, happiness and wonderful adventures
+        is waiting for you.
+    </p>
+
+    <div class="quote">Let the magic begin!</div>
+
+    <div style="font-size:35px">🌸 🦋 ✨</div>
+
+</section>
+
+
+<!-- SLIDE 2 -->
+<section class="slide">
+
+    <div class="eyebrow">A FEW WORDS FOR YOU</div>
+
+    <div class="big-emoji">🌷</div>
+
+    <h1>Birthday Wishes</h1>
+
+    <div class="divider"></div>
+
+    <p>
+        May your smile never fade.
+        <br>
+        May your dreams become reality.
+        <br>
+        May every day bring new opportunities.
+        <br>
+        May you always find reasons to celebrate.
+        <br>
+        May your journey be full of success.
+    </p>
+
+    <div class="quote">
+        Keep shining, Natasha!
+    </div>
+
+    <div style="font-size:35px">🌼 🌸 🌼</div>
+
+</section>
+
+
+<!-- SLIDE 3 -->
+<section class="slide">
+
+    <div class="eyebrow">LITTLE MOMENTS, BIG MEMORIES</div>
+
+    <div class="big-emoji">📸</div>
+
+    <h1>Beautiful Memories</h1>
+
+    <p>
+        Every beautiful moment deserves to be remembered.
+        Add your favourite pictures here!
+    </p>
+
+    <div class="gallery">
+
+        <!-- Replace these emojis with your photos -->
+        <div class="photo">
+            📷
+            <span>Memory 1</span>
+        </div>
+
+        <div class="photo">
+            🌸
+            <span>Memory 2</span>
+        </div>
+
+        <div class="photo">
+            🦋
+            <span>Memory 3</span>
+        </div>
+
+        <div class="photo">
+            ✨
+            <span>Memory 4</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SLIDE 4 -->
+<section class="slide">
+
+    <div class="eyebrow">A LITTLE PERSONAL NOTE</div>
+
+    <div class="big-emoji">💌</div>
+
+    <h1>Dear Natasha</h1>
+
+    <div class="divider"></div>
+
+    <p>
+        On your special day, I just want to wish you
+        endless happiness and success.
+
+        <br><br>
+
+        Life is full of different chapters.
+        I hope this new chapter brings you
+        beautiful experiences, wonderful people
+        and unforgettable memories.
+
+        <br><br>
+
+        Never change your beautiful personality.
+        Keep smiling and always believe in yourself.
+    </p>
+
+    <div class="quote">
+        You are one of a kind!
+    </div>
+
+    <div style="font-size:35px">🌷 🦋 🌷</div>
+
+</section>
+
+
+<!-- SLIDE 5 -->
+<section class="slide">
+
+    <div class="eyebrow">THE FINAL SURPRISE</div>
+
+    <div class="big-emoji">🎁</div>
+
+    <h1>Once Again...</h1>
+
+    <div class="name">Happy Birthday!</div>
+
+    <p>
+        Natasha, may this year be your most
+        beautiful year yet.
+
+        Keep laughing, keep dreaming,
+        keep growing and keep shining!
+    </p>
+
+    <div class="quote">
+        Make every moment count.
+    </div>
+
+    <button onclick="celebrate()">
+        🎉 Celebrate Your Day
+    </button>
+
+    <div style="font-size:35px;margin-top:20px">
+        🎂 🌸 🦋 ✨
+    </div>
+
+</section>
+
+
+<!-- NAVIGATION -->
+<div class="navigation">
+
+    <button id="prev" onclick="changeSlide(-1)">
+        ← Previous
+    </button>
+
+    <button id="next" onclick="changeSlide(1)">
+        Next →
+    </button>
+
+</div>
+
+<div class="dots" id="dots"></div>
+
+<div class="footer">
+    MADE JUST FOR NATASHA
+</div>
+
+</div>
+
+
+<script>
+
+let currentSlide = 0;
+
+const slides = document.querySelectorAll(".slide");
+const dotsContainer = document.getElementById("dots");
+
+// Create navigation dots
+slides.forEach((slide,index) => {
+    const dot = document.createElement("div");
+    dot.className = "dot";
+    dot.onclick = () => showSlide(index);
+    dotsContainer.appendChild(dot);
+});
+
+const dots = document.querySelectorAll(".dot");
+
+function showSlide(index) {
+
+    currentSlide = index;
+
+    slides.forEach((slide,i) => {
+        slide.classList.toggle("active",i === index);
+        dots[i].classList.toggle("active",i === index);
+    });
+
+    document.getElementById("prev").disabled = index === 0;
+
+    document.getElementById("next").disabled =
+        index === slides.length - 1;
+}
+
+function changeSlide(direction) {
+
+    const nextSlide = currentSlide + direction;
+
+    if(nextSlide >= 0 && nextSlide < slides.length) {
+        showSlide(nextSlide);
+    }
+}
+
+// Background stars
+const background = document.getElementById("background");
+
+for(let i=0;i<50;i++) {
+
+    const star = document.createElement("span");
+
+    star.className = "star";
+    star.innerHTML = "✦";
+
+    star.style.left = Math.random()*100 + "%";
+    star.style.top = Math.random()*100 + "%";
+    star.style.fontSize = (8+Math.random()*12) + "px";
+    star.style.animationDelay = Math.random()*2 + "s";
+
+    background.appendChild(star);
+}
+
+// Initial confetti
+window.onload = () => {
+
+    showSlide(0);
+
+    confetti({
+        particleCount: 120,
+        spread: 100,
+        origin: {y:.6},
+        colors: ["#ffbad7","#ffe6aa","#ffffff","#d6b5ff"]
+    });
+};
+
+// Final celebration
+function celebrate() {
+
+    const end = Date.now()+5000;
+
+    (function frame() {
+
+        confetti({
+            particleCount: 8,
+            spread: 90,
+            startVelocity: 35,
+            origin: {
+                x: Math.random(),
+                y: Math.random()*.5
+            },
+            colors: ["#ffbad7","#ffe6aa","#ffffff","#d6b5ff"]
+        });
+
+        if(Date.now()<end) {
+            requestAnimationFrame(frame);
+        }
+
+    })();
+}
+
+// Keyboard navigation
+document.addEventListener("keydown",e => {
+
+    if(e.key === "ArrowRight") changeSlide(1);
+    if(e.key === "ArrowLeft") changeSlide(-1);
+
+});
+
+</script>
+
+</body>
+</html>
